@@ -1,14 +1,15 @@
-# login.py - سیستم ورود ساده
+# login_secure.py
+import hashlib
 
 users = {
-    "admin": "1234",
-    "user": "5678"
+    "admin": hashlib.sha256("1234".encode()).hexdigest(),
+    "user": hashlib.sha256("5678".encode()).hexdigest()
 }
 
 username = input("نام کاربری: ")
-password = input("رمز عبور: ")
+password = hashlib.sha256(input("رمز عبور: ").encode()).hexdigest()
 
 if username in users and users[username] == password:
     print(f"✅ خوش آمدی {username}!")
 else:
-    print("❌ نام کاربری یا رمز عبور اشتباه است!")
+    print("❌ اطلاعات وارد شده اشتباه است!")
